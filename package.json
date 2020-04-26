@@ -1,0 +1,24 @@
+{
+    "name": "alzheimersai",
+    "version": "1.0.0",
+    "description": "A website for early detection and tracking of Alzheimer's disease.\r Silicon Valley Hacks Hackathon",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/raad1masum/AlzheimersAI.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/raad1masum/AlzheimersAI/issues"
+    },
+    "homepage": "https://github.com/raad1masum/AlzheimersAI#readme",
+    "devDependencies": {
+      "file-loader": "^6.0.0",
+      "firebase-tools": "^8.1.1"
+    }
+  }

@@ -1,0 +1,41 @@
+matrix:
+  include:
+      - language: generic
+        python: "3.7"
+        node_js: "12.12.0"
+        services: docker
+        env:
+        - GCP_PROJECT_ID=alzheimersai-2121
+        - IMAGE=gcr.io/alzheimersai-2121/alzheimersai
+        - CLOUD_RUN_SERVICE=alzheimersai
+        - CLOUD_RUN_REGION=us-central1
+        - CLOUDSDK_CORE_DISABLE_PROMPTS=1 # prevent gcloud from prompting
+        before_install:
+        - nvm install node
+        - npm i -g firebase-tools
+        - pip install gdown --user
+        - python travis_builder.py
+        - openssl aes-256-cbc -K $encrypted_98d237b7dbf4_key -iv $encrypted_98d237b7dbf4_iv -in google-key.json.enc -out google-key.json -d
+        - curl https://sdk.cloud.google.com | bash > /dev/null
+        - source "$HOME/google-cloud-sdk/path.bash.inc"
+        - gcloud auth activate-service-account --key-file=google-key.json
+        - gcloud auth configure-docker    # enable "docker push" to gcr
+        - gcloud config set project "${GCP_PROJECT_ID}"
+        - gcloud config set builds/use_kaniko True
+        - gcloud components install beta  # until Cloud Run is generally available (GA)
+        install: true
+        script:
+        - |
+          set -ex;
+          docker build -t "${IMAGE}:${TRAVIS_COMMIT}" ./server && \
+          docker push "${IMAGE}:${TRAVIS_COMMIT}" && \
+          gcloud beta run deploy "${CLOUD_RUN_SERVICE}" --memory=1Gi \
+            --image="${IMAGE}:${TRAVIS_COMMIT}" \
+            --platform=managed \
+            --region="${CLOUD_RUN_REGION}" \
+            --allow-unauthenticated;
+          set +x
+        deploy:
+          provider: firebase
+          token:
+            secure: "WWs0UiXF9x2wU8Xbxu3CLcz9uUdVXRYV/RiSzBLg6BC2GgWwoGD2s0dD0s+CCneJua4G/mLfapaZ+4DZIhgiLl87KVNEfR6l99ydQf7VknFaq8cqqB91C53lv6AJUmdra6ny8hT6Bo1Q9vdCAAX0VKbkx/2sYboxNJs10rQ6FCCc+GRVOqTpYI0Mb97Lc1ck704CwrKgkla0KmroIdHJa70TrT7iuDQIz1f5BUOPrY7TvNqgKYLNZXBIUVQkGRrQkQKQH3FHHCSn5AlJxv2ZaM4QPOF45Iqz8ZX4Q452Z8ITtjOcT9vrsUUzf0HpJsgYEVzGa7YRfbv7J5nsQyHK8Jj4RdnnirAvTUhh3dAWeowoFQvmmqYC51Efk2WTl6mT8j9IEkV+GAZKrfbginr6kVtH25dMvffCFyEYzhIUF7qF5cWhJvv8A2YPcbe4CCBVQF4lsb371Xu6F7tAgEw2QTY3/Fi4OUdEABXa96cp1qrhx6+XMV7ERUxGo4qZfAXvhJCl/qVjd2Q8AiSmarwAbeey3egUde2xPzaP7TP5gnd+aa7s69xdUQBW6wermZ5uJ+76Hq1l76/zM899xh4A7Tf+Svinqqhgp+l4nk9Ba6CCvr7xn1h1BZCdeUqfSymEX3mAeSYGdT4MhICmk9Z+9ErPYQoqwN+Uq12qIB1zwlI="

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="icon" type="image/png" href="./assets/logo_favicon.png" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+  <script src="./js/main.js"></script>
+  <title>AlzheimersAI | Neuralz</title>
+</head>
+
+<body onload="checkW()">
+  <nav class="navbar navbar-expand-md navbar-light sticky-top">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/">
+      <img class="img-responsive" src="./assets/logo.png"></img>
+      AlzheimersAI
+    </a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/neuralz">NeuralZ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item" id="loginnav" style="display: none;">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item" style="display: none;" id="statsnav">
+          <a class="nav-link" href="/stats">Stats</a>
+        </li>
+        <li class="nav-item" style="display: none;" id="profilenav">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+        <li class="nav-item" style="display: none;" id="signoutnav">
+          <a class="nav-link" href="/signout">Sign Out</a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+  <header class="masthead-nothome">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center">
+          <h1 class="font-weight-light">NeuralZ</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+  <section class="py-5">
+    <div class="container">
+      <h2 class="font-weight-light">Upload Brain Scan</h2>
+      <p>Drag-and-drop your brain scan's <code>.jpg</code> file here:</p>
+      <div class="container mt-3">
+        <form method="post" enctype=multipart/form-data>
+          <div class="custom-file mb-3" style="width: 50%;">
+            <input type="file" class="custom-file-input" id="customFile" name="file">
+            <label id="fchoose" class="custom-file-label" for="customFile">Choose
+              file</label>
+          </div>
+          <p>Status: <code id="aiout">{{ aiout }}</code></p>
+          <div class="mt-3">
+            <input id="poster" type="submit" value="Upload" disabled>
+          </div>
+          <!--this is upload guys!!!!!!!!!!!!!-->
+        </form>
+      </div>
+      <section class="py-5">
+        <div class="container" id="quiz" style="display: none;">
+          <h2 class="font-weight-light">Take the quiz</h2>
+          <p>Find out the severity of your condition with this assessment</p>
+          <a href="/quiz"><input type="submit" value="Let's Go!"></a>
+        </div>
+
+        <script>
+          // Add the following code if you want the name of the file appear on select
+          $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            document.getElementById("poster").disabled = false
+          });
+        </script>
+    </div>
+  </section>
+
+  <footer>
+    Copyright &copy; 2020
+  </footer>
+  <script src="/__/firebase/7.14.1/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.1/firebase-analytics.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+  <script defer>
+    var config = {
+      apiKey: "AIzaSyBALf2tjKvZfh-bjypK0fdlddD-xHfDYng",
+      authDomain: "alzheimersai-2121.web.app/",
+      databseURL: "https://alzheimersai-2121.firebaseio.com/",
+      projectId: "alzheimersai-2121"
+    }
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(config)
+      console.log("worked")
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    var thedocdocdoc = null
+    var profile = null
+    auth.onAuthStateChanged(function (user) {
+      console.log(user)
+      if (user !== null) {
+        document.getElementById("signoutnav").style.display = 'inline-block'
+        document.getElementById("loginnav").style.display = 'none'
+        document.getElementById("profilenav").style.display = 'inline-block'
+        document.getElementById("statsnav").style.display = 'inline-block';
+
+        var ai = document.getElementById("aiout").innerHTML;
+        if (ai !== "") {
+          var docRef = db.collection("users").doc(user.uid);
+          docRef.get().then(function (doc) {
+            if (doc.exists) {
+              var curstatus = undefined
+              if (doc.data().status === undefined) {
+                curstatus = []
+              }
+              else {
+                curstatus = doc.data().status
+              }
+              var date = new Date()
+              curstatus.push({ status: ai, date: date })
+              db.collection("users").doc(user.uid).update({ status: curstatus }).then(function () {
+
+              }, { merge: true })
+            }
+          })
+          document.getElementById("quiz").style.display = 'inline-block'
+        }
+        else {
+          var docRef = db.collection("users").doc(user.uid);
+          docRef.get().then(function (doc) {
+            if (doc.exists) {
+              var len = doc.data().status.length - 1
+              if (len !== -1) {
+                console.log(doc.data().status[len].status)
+                document.getElementById("aiout").innerHTML = doc.data().status[len].status
+                if (document.getElementById("aiout").innerHTML === "") {
+                  console.log("not changing")
+                }
+                else {
+                  console.log("changing" + document.getElementById("quiz").innerHTML)
+                  document.getElementById("quiz").style.display = 'inline-block'
+                }
+              }
+            }
+          })
+        }
+        var docRef = db.collection("users").doc(user.uid);
+        docRef.get().then(function (doc) {
+          if (doc.exists) {
+            thedocdocdoc = doc
+            if (doc.data().profile === false) {
+              alert("Please Fill Out Your Profile Before Using NeuralZ")
+              window.location.pathname = '/profile'
+            }
+            else {
+              profile = doc.data()
+            }
+          }
+          else {
+            alert("Please Login Before Using NeuralZ")
+            window.location.pathname = '/login'
+          }
+        })
+      }
+      else {
+        alert("Please Login Before Using NeuralZ")
+        window.location.pathname = '/login'
+        console.log("false2")
+        document.getElementById("loginnav").style.display = 'inline-block'
+        document.getElementById("signoutnav").style.display = 'none'
+      }
+    })
+
+  </script>
+</body>
+
+</html>

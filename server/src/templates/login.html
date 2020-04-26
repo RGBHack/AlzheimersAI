@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="icon" type="image/png" href="./assets/logo_favicon.png"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="./js/main.js"></script>
+        <title>AlzheimersAI | Login</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light sticky-top">
+            <!-- Brand -->
+            <a class="navbar-brand" href="/">
+                <img class="img-responsive" src="./assets/logo.png"></img>
+                AlzheimersAI
+            </a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" onClick="mCheck()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/neuralz">NeuralZ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Login</a>
+                </li>
+                <li class="nav-item" style="display: none;" id="profilenav">
+                  <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item" style="display: none;" id="signoutnav">
+                  <a class="nav-link" href="/signout">Sign Out</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+        <header class="masthead-nothome">
+            <div class="container h-100">
+              <div class="row h-100 align-items-center">
+                <div class="col-12 text-center">
+                  <h1 class="font-weight-light">Login</h1>
+                </div>
+              </div>
+            </div>
+          </header>
+          <section class="py-5">
+            <div class="container">
+                <div class="wrapper fadeInDown inputStyling">
+                    <div id="formContent">
+                      <!-- Tabs Titles -->
+                  
+                      <!-- Icon -->
+                      <div>
+                        <img src="./assets/logo.png" style="width: 5rem; height: 5rem;" id="icon" alt="User Icon" />
+                      </div>
+                  
+                      <!-- Login Form -->
+                      <form id="formEE">
+                        <input type="text" id="email" name="email" placeholder="Email">
+                        <input type="password" id="password" name="password" placeholder="Password">
+                        <input type="submit" value="Login">
+                      </form>
+                  
+                      <!-- Remind Passowrd -->
+                      <div id="formFooter">
+                        <a class="underlineHover" href="/password">Forgot Password</a>
+                        <a class="underlineHover" href="/signup">Sign Up</a>
+                      </div>
+                  
+                    </div>
+                  </div>
+            </div>
+          </section>
+          <footer>
+              Copyright &copy; 2020
+          </footer>
+          <script src="/__/firebase/7.14.1/firebase-app.js"></script>
+          <script src="/__/firebase/7.14.1/firebase-analytics.js"></script>
+          <script src="/__/firebase/init.js"></script>
+          <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+
+          <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+
+          <!-- Add Firebase products that you want to use -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+          <script>
+            var config = {
+              apiKey: "AIzaSyBALf2tjKvZfh-bjypK0fdlddD-xHfDYng",
+              authDomain: "alzheimersai-2121.web.app/",
+              databseURL: "https://alzheimersai-2121.firebaseio.com/",
+              projectId: "alzheimersai-2121"
+            }
+            if (firebase.apps.length === 0) {
+              firebase.initializeApp(config)
+              console.log("worked")
+            }
+            const auth = firebase.auth();
+            const db = firebase.firestore();
+            db.settings({ timestampsInSnapshots: true })
+			      function bake_cookie(name, value) {
+              var cookie = [name, '=', JSON.stringify(value)].join('');
+              document.cookie = cookie;
+              console.log(read_cookie(name))
+              console.log(read_cookie(name).user.uid)
+            }
+            function read_cookie(name) {
+              var result = document.cookie.match(new RegExp(name + '=([^;]+)'));
+              result && (result = JSON.parse(result[1]));
+              return result;
+            }
+            var form = document.getElementById("formEE")
+            form.onsubmit = function (e) {
+              e.preventDefault()
+              const email = form['email'].value
+              const password = form['password'].value
+              auth.signInWithEmailAndPassword(email,password).then(cred => {
+                window.location.pathname = '/'
+              }).catch(err => {
+                console.log(err)
+                alert("Please check your email and password")
+              })
+            }
+          </script>
+    </body>
+</html>

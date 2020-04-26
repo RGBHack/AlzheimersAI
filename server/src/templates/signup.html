@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/main.css">
+        <link rel="icon" type="image/png" href="./assets/logo_favicon.png"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="./js/main.js"></script>
+        <title>AlzheimersAI | Sign Up</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light sticky-top">
+            <!-- Brand -->
+            <a class="navbar-brand" href="/">
+                <img class="img-responsive" src="./assets/logo.png"></img>
+                AlzheimersAI
+            </a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar" onClick="mCheck()">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/neuralz">NeuralZ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item" style="display: none;" id="profilenav">
+                  <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item" style="display: none;" id="signoutnav">
+                  <a class="nav-link" href="/signout" style="display: none;">Sign Out</a>
+                </li>
+            </ul>
+            </div>
+        </nav>
+        <header class="masthead-nothome">
+            <div class="container h-100">
+              <div class="row h-100 align-items-center">
+                <div class="col-12 text-center">
+                  <h1 class="font-weight-light">Sign Up</h1>
+                </div>
+              </div>
+            </div>
+          </header>
+          <section class="py-5">
+            <div class="container">
+                <div class="wrapper fadeInDown inputStyling">
+                    <div id="formContent">
+                      <!-- Tabs Titles -->
+                  
+                      <!-- Icon -->
+                      <div class="fadeIn first">
+                        <img src="./assets/logo.png" style="width: 5rem; height: 5rem;" id="icon" alt="User Icon" />
+                      </div>
+                  
+                      <!-- Login Form -->
+                      <form id="formEE">
+                        <input type="text" id="login" name="email" placeholder="Email">
+                        <input type="password" id="password" name="password" placeholder="Password">
+                        <input type="submit" value="Sign Up" id="submit">
+                      </form>
+                  
+                      <!-- Remind Passowrd -->
+                      <div id="formFooter">
+                        <a class="underlineHover" href="/login">Back to Login</a>
+                      </div>
+                  
+                    </div>
+                  </div>
+            </div>
+          </section>
+          <footer>
+              Copyright &copy; 2020
+          </footer>
+          <script src="/__/firebase/7.14.1/firebase-app.js"></script>
+          <script src="/__/firebase/7.14.1/firebase-analytics.js"></script>
+          <script src="/__/firebase/init.js"></script>
+          <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+
+          <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+
+          <!-- Add Firebase products that you want to use -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+          <script>
+            var config = {
+              apiKey: "AIzaSyBALf2tjKvZfh-bjypK0fdlddD-xHfDYng",
+              authDomain: "alzheimersai-2121.web.app/",
+              databseURL: "https://alzheimersai-2121.firebaseio.com/",
+              projectId: "alzheimersai-2121"
+            }
+            if (firebase.apps.length === 0) {
+              firebase.initializeApp(config)
+              console.log("worked")
+            }
+            const auth = firebase.auth();
+            const db = firebase.firestore()
+            db.settings({ timestampsInSnapshots: true })
+		      	function bake_cookie(name, value) {
+              var cookie = [name, '=', JSON.stringify(value), '; domain=.', window.location.host.toString(), '; path=/;'].join('');
+              document.cookie = cookie;
+            }
+            var form = document.getElementById("formEE")
+            form.onsubmit = function (e) {
+              e.preventDefault()
+              const email = form['email'].value
+              const password = form['password'].value
+            auth.createUserWithEmailAndPassword(email,password).then(cred => {
+              db.collection("users").doc(cred.user.uid).set({profile : false, scores : [], status : []}).then(function (){
+                window.location.pathname = '/profile'
+              }).catch(err => {
+                alert(err.code)
+              })
+            }).catch(err => {
+              if (err.code === "auth/email-already-in-use") {
+                alert("Email is already in use")
+              }
+              else if (err.code === "auth/invalid-email") {
+                alert("Email is formatted incorrectly")
+              }
+              else {
+                alert(err.code)
+              }
+            })
+            }
+          </script>
+    </body>
+</html>

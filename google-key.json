@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "alzheimersai-2121",
+  "private_key_id": "b12d9721942b908bfb2a3bd130d89e066c17d3af",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDIBXHCD89zdtNV\np70387gITXRagafpoeRm0AN33WHeHH3j9/kmeDVDti2CijVm09ZU6ubmK1VYAYIC\nWQh4aEP6ORgxJVBv68+Jr35HvvrYf3bPaMwvS7/oMeSxfTKtjPWCbZhqmIsrwWRM\nYLbKDD/9zYxT0A0Lhm+zhg3f3Y+UQnISj1uRg8E7Ax/0buUGxaTs+K/7ejrba1DO\njsQrPVbHPUb4udliNzMI76XkWbGFtO42xxUTT6WJde5SuJouD+pmpHpnI1fFBNDF\nmsnnS9EgeM3Epdiw5h8vWSC8JrcM8jjGEbZ7ADlNepjkKn4f1CwtLSNbfCTsiODV\nl8ts0YvBAgMBAAECggEAAIorB4NCrQLgFL8xnsHbCH/TR0rREo+A/Jbemgv5vRyx\ntpVM0TqDcgiskvm2gLeEkU0nOU/79PdHAdW3pYxSju+oEmoRkgUAowqe1SRWaMwU\ntEZX739MC23QDMiKtDji5+zdkYUGRZrToFZaWOZr5cTGzFOFvk+JUZALh1cruBGT\n2q8IHa3h8YnQ9nT6uu3nhArRIc8CDLdzWI6QhfiOdgPmTHUnBnbZhAnpqk6QpnS+\n+GApRJ7HYlCJGJosVFR9/FV2q3B9LHIfesX/YoPCwwymxqxofg+zDz/Lx/m7mbDC\nyO8ylovPvqnzRIvABa9n4fOjwZE81DSCckH/gmAonQKBgQDuL1wbzmxsyDF6qJkA\nTLcxGm5myKTbqi7UFEDAU1clC146VruLaUArJ62vOclrDR9ooWj3XtCGvlwzP5mU\nc86bUkzp/v0jtSvDSmRxzaE03NIOMwp7419z9d35Cz8/yytzW6REQYxWX/Dm1dB3\n76wa6Ju8mvgDPeU6eipnthWbTQKBgQDW+1h72KY3U9bOGqKLI8IBTEAndpSrxA2F\nk4qTdLB/Okz7ljNOpDS8/fZG111tSLMHE2AR0M5092jlPRmJ+WB8oTgA2Uq7SHTp\nTSYU9x+pmj5mFAPMhhh3ydwQR4c2LKeCSeLEX1YBuJSCEPabt2RyttNBf20D7L63\nu8VrEMFwRQKBgGWODeDRP8uWA/q/fhTxoL4v/diXPitmwXatd/pIzoQ995w6NNa5\nNqHv1g87PVUGkFjFUYL/izuYWKmFOY9hXTs+eQrgLMCX06P9yRv4x/5JFMr3GkY+\naQmBUHaKRBqIHuudrElqBVMirw1NJwisSR5kBVsCXDLNpjorsn7r1QSVAoGAe8oF\nHGMW6trq4IjzuZzgdHDcrBya5QEiLB1V+SyDCO+gLmpBpvHksEKoUghm8que8t8U\nPY33o+Bm1UFGeG1RQtJudgapAohpUYGsAPx/jeCUN6EkwtsgMbHZdsJJOEekOOCk\npCClXJ5VXUO5TNbgDzH5GUjvlAf5lcCYn9rpF+UCgYEAwclotgvNrKqrfcpPw8ky\nnZLd2z26Z1P4sd76MpThleteHQMCSkoEcCWMQry/Vai+Msqp3AQ96HOem8/epHR7\nmxMC2bgg8VeZ6+aiO8NrvO2W7OTGi57qTQZM+qvTbS3Cj/9iGhn+sCZj7x95acoV\np8F34Oil86Z/ep2EmCB8EJ0=\n-----END PRIVATE KEY-----\n",
+  "client_email": "travisci-deployer2@alzheimersai-2121.iam.gserviceaccount.com",
+  "client_id": "102936913360869884841",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/travisci-deployer2%40alzheimersai-2121.iam.gserviceaccount.com"
+}

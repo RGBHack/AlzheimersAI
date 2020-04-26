@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="./css/main.css">
+        <link rel="icon" type="image/png" href="./assets/logo_favicon.png"/>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="./js/main.js"></script>
+        <title>AlzheimersAI</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light sticky-top">
+            <!-- Brand -->
+            <a class="navbar-brand" href="#">
+                <img class="img-responsive" src="./assets/logo.png"></img>
+                AlzheimersAI
+            </a>
+
+            <!-- Toggler/collapsibe Button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar links -->
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+              <ul class="navbar-nav">
+                  <li class="nav-item active">
+                      <a class="nav-link" href="#">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/neuralz">NeuralZ</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/about">About</a>
+                  </li>
+                  <li class="nav-item" id="loginnav" style="display: none;">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+                  <li class="nav-item" style="display: none;" id="statsnav">
+                    <a class="nav-link" href="/stats">Stats</a>
+                  </li>
+                  <li class="nav-item" style="display: none;" id="profilenav">
+                    <a class="nav-link" href="/profile">Profile</a>
+                  </li>
+                  <li class="nav-item" style="display: none;" id="signoutnav">
+                    <a class="nav-link" href="/signout">Sign Out</a>
+                  </li>
+              </ul>
+            </div>
+        </nav>
+        <header class="masthead">
+            <div class="container h-100">
+              <div class="row h-100 align-items-center">
+                <div class="col-12 text-center">
+                  <h1 class="font-weight-light">Welcome to AlzheimersAI</h1>
+                  <p class="lead">A web solution for early detection and tracking of Alzheimer's disease</p>
+                  <a href="/neuralz"><input type="submit" value="Get Started!"></a>
+                </div>
+              </div>
+            </div>
+          </header>
+          <section class="py-5">
+            <div class="container">
+              <h2 class="font-weight-light">What is AlzheimersAI?</h2>
+              <p>AlzheimersAI is a Firebase-hosted Flask app running inside a Google Cloud Run Docker container. It combines quiz results with a FastAI Convolution Neural Network analysis of the users' brain scan to produce a value for the user's Alzheimers Index. You can view more information about this project along with source code at our <a href="https://github.com/safinsingh/AlzheimersAI">GitHub Repository</a>.</p>
+            </div>
+          </section>
+          <footer>
+              Copyright &copy; 2020
+          </footer>
+          <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+
+          <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+
+          <!-- Add Firebase products that you want to use -->
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+          <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+          <script defer>
+            var config = {
+              apiKey: "AIzaSyBALf2tjKvZfh-bjypK0fdlddD-xHfDYng",
+              authDomain: "alzheimersai-2121.web.app/",
+              databseURL: "https://alzheimersai-2121.firebaseio.com/",
+              projectId: "alzheimersai-2121"
+            }
+            if (firebase.apps.length === 0) {
+              firebase.initializeApp(config)
+              console.log("worked")
+            }
+            const auth = firebase.auth();
+            auth.onAuthStateChanged(function (user) {
+              console.log(user)
+              if (user !== null) {
+                document.getElementById("signoutnav").style.display = 'inline-block'
+                document.getElementById("loginnav").style.display = 'none'
+                document.getElementById("profilenav").style.display = 'inline-block'
+                document.getElementById("statsnav").style.display = 'inline-block'
+                console.log("true2")
+              } 
+              else {
+                console.log("false2")
+                document.getElementById("loginnav").style.display = 'inline-block'
+                document.getElementById("signoutnav").style.display = 'none'
+              }
+            });
+          </script>
+    </body>
+</html>

@@ -1,0 +1,7 @@
+Flask==1.1.1
+fastai==1.0.60
+pandas==1.0.3
+Flask_WTF==0.14.3
+WTForms==2.3.0
+#Install Pytorch externally for fastai to work
+#Requires GPU

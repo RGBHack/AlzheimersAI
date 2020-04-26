@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="icon" type="image/png" href="./assets/logo_favicon.png" />
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.bundle.js"></script>
+  <script src="./js/main.js"></script>
+  <title>AlzheimersAI | Stats</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-md navbar-light sticky-top">
+    <!-- Brand -->
+    <a class="navbar-brand" href="/" style="height: 3.5rem;">
+      <img class="img-responsive" src="./assets/logo.png"></img>
+      AlzheimersAI
+    </a>
+
+    <!-- Toggler/collapsibe Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/neuralz">NeuralZ</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item" id="loginnav" style="display: none;">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+        <li class="nav-item active" id="statsnav">
+          <a class="nav-link" href="#">Stats</a>
+        </li>
+        <li class="nav-item" style="display: none;" id="profilenav">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+        <li class="sign-out" style="display: none;" id="signoutnav">
+          <a class="nav-link" href="/signout">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <header class="masthead-nothome">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12 text-center">
+          <h1 class="font-weight-light">Statistics</h1>
+        </div>
+      </div>
+    </div>
+    </div>
+  </header>
+  <section class="py-5">
+    <div class="container">
+        <p id="index">Your current <b id="hoverq" data-toggle="tooltip" data-placement="top" title="Your Alzheimer's Index is a combination of your latest quiz score as well as your latest brain scan. The lower this number is, the higher the severity of you condition.">Alzheimers Index</b>: N/A</p>
+        <p>Your progress over time:</p>
+      <div style="width: 800px; margin: 0 auto;">
+        <canvas id="chart"></canvas>
+      </div>
+      <script>
+        $(function () {
+          $('[data-toggle="tooltip"]').tooltip()
+        })
+        
+        Date.prototype.toIsoString = function () {
+          var tzo = -this.getTimezoneOffset(),
+            dif = tzo >= 0 ? '+' : '-',
+            pad = function (num) {
+              var norm = Math.floor(Math.abs(num));
+              return (norm < 10 ? '0' : '') + norm;
+            };
+          return this.getFullYear() +
+            '-' + pad(this.getMonth() + 1) +
+            '-' + pad(this.getDate()) +
+            'T' + pad(this.getHours()) +
+            ':' + pad(this.getMinutes()) +
+            ':' + pad(this.getSeconds()) +
+            dif + pad(tzo / 60) +
+            ':' + pad(tzo % 60);
+        }
+
+        function genStr(date) {
+          fDate = date.toIsoString().split("T")[0];
+          console.log("genstr below")
+          console.log(fDate)
+          console.log
+          return fDate
+          //return (Date(fDate).toLocaleString())
+        }
+
+
+
+        function func(scores, scans) {
+          var ctx = document.getElementById("chart").getContext("2d");
+          var imgdata = []
+          var quizdata = []
+          var labels = []
+          for (var i = 0; i < scans.length; i++) {
+            if (scans[i].status === "NonDemented") {
+              imgdata.push({ t: scans[i].date.toDate(), y: 100 })
+              labels.push(scans[i].date.toDate())
+            }
+            if (scans[i].status === "VeryMildDemented") {
+              imgdata.push({ t: scans[i].date.toDate(), y: 75 })
+              labels.push(scans[i].date.toDate())
+            }
+            if (scans[i].status === "MildDemented") {
+              imgdata.push({ t: scans[i].date.toDate(), y: 50 })
+              labels.push(scans[i].date.toDate())
+            }
+            if (scans[i].status === "ModerateDemented") {
+              imgdata.push({ t: scans[i].date.toDate(), y: 25 })
+              labels.push(scans[i].date.toDate())
+            }
+          }
+          for (var i = 0; i < scores.length; i++) {
+            quizdata.push({ t: scores[i].date.toDate(), y: scores[i].status })
+            labels.push(scores[i].date.toDate())
+          }
+          labels.sort((a, b) => a - b)
+
+          var newlabels = []
+          for (var i = 0; i < labels.length; i++) {
+            newlabels.push(genStr(labels[i]))
+            console.log(genStr(labels[i]))
+          }
+
+          console.log(newlabels)
+
+          var imgLine = {
+            label: "Brain Scans",
+            data: imgdata,
+            backgroundColor: ['rgba(255, 99, 132, 0.2)'],
+            borderColor: ['rgba(255,99,132,1)'],
+            borderWidth: 1
+          }
+
+          var quizLine = {
+            label: "Quiz Scores",
+            data: quizdata,
+            backgroundColor: ['rgba(2, 81, 199, 0.2)'],
+            borderColor: ['rgba(2, 81, 199,1)'],
+            borderWidth: 1
+          }
+
+          var myData = {
+            labels: newlabels,
+            datasets: [imgLine, quizLine]
+          };
+
+          var lineChart = new Chart(ctx, {
+            type: 'line',
+            data: myData,
+            options: {
+              scales: {
+                xAxes: [{
+                  type: 'time',
+                  time: {
+                    unit: 'day',
+                    stepSize: 7,
+                  }
+                }],
+                yAxes: [{
+                  ticks: {
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    stepSize: 10
+                  }
+                }]
+              }
+            }
+          });
+        }
+      </script>
+    </div>
+  </section>
+  <footer>
+    Copyright &copy; 2020
+  </footer>
+  <script src="/__/firebase/7.14.1/firebase-app.js"></script>
+  <script src="/__/firebase/7.14.1/firebase-analytics.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-app.js"></script>
+
+  <!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-analytics.js"></script>
+
+  <!-- Add Firebase products that you want to use -->
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.1/firebase-firestore.js"></script>
+  <script defer>
+    var config = {
+      apiKey: "AIzaSyBALf2tjKvZfh-bjypK0fdlddD-xHfDYng",
+      authDomain: "alzheimersai-2121.web.app/",
+      databseURL: "https://alzheimersai-2121.firebaseio.com/",
+      projectId: "alzheimersai-2121"
+    }
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(config)
+      console.log("worked")
+    }
+    const auth = firebase.auth();
+    const db = firebase.firestore()
+    auth.onAuthStateChanged(function (user) {
+      console.log(user)
+      if (user !== null) {
+        document.getElementById("signoutnav").style.display = 'inline-block'
+        document.getElementById("loginnav").style.display = 'none'
+        console.log("true2")
+        var docRef = db.collection("users").doc(user.uid);
+        docRef.get().then(function (doc) {
+          if (doc.exists) {
+            var curstatus = undefined
+            var scores = undefined
+            if (doc.data().status === undefined) {
+              curstatus = []
+            }
+            else {
+              curstatus = doc.data().status
+            }
+            if (doc.data().scores === undefined) {
+              scores = []
+            }
+            else {
+              scores = doc.data().scores
+            }
+
+            if (scores.length !== 0) {
+              var index2 = document.getElementById("index")
+              var thefirst = curstatus[curstatus.length-1].status
+
+              if (thefirst === "NonDemented") {
+                thefirst = 100
+              }
+              if (thefirst === "VeryMildDemented") {
+                thefirst = 75
+              }
+              if (thefirst === "MildDemented") {
+                thefirst = 50
+              }
+              if (thefirst === "ModerateDemented") {
+                thefirst = 25
+              }
+
+              var thesecond = scores[scores.length-1].status
+              var average = (thefirst+thesecond)/2
+              console.log(average)
+              console.log(thefirst)
+              console.log(thesecond)
+              index2.innerHTML = 'Your current <b id="hoverq" data-toggle="tooltip" data-placement="top" title="Your Alzheimer\'s Index is a combination of your latest quiz score as well as your latest brain scan. The lower this number is, the higher the severity of you condition.">Alzheimers Index</b>: '+ average
+            }
+            func(scores, curstatus)
+          }
+        })
+      }
+      else {
+        console.log("false2")
+        document.getElementById("loginnav").style.display = 'inline-block'
+        document.getElementById("signoutnav").style.display = 'none'
+      }
+      const auth = firebase.auth();
+      auth.onAuthStateChanged(function (user) {
+        console.log(user)
+        if (user !== null) {
+          document.getElementById("signoutnav").style.display = 'inline-block'
+          document.getElementById("profilenav").style.display = 'inline-block'
+          document.getElementById("loginnav").style.display = 'none'
+          console.log("true2")
+        }
+        else {
+          console.log("false2")
+          document.getElementById("loginnav").style.display = 'inline-block'
+          document.getElementById("signoutnav").style.display = 'none'
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
