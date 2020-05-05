@@ -15,6 +15,6 @@ For more information on our AI and our AI library, please check out the AI folde
 
 Video Demo: [https://youtu.be/DBsy2l8raws](https://youtu.be/DBsy2l8raws)<br>
 DevPost: [https://devpost.com/software/alzheimersai](https://devpost.com/software/alzheimersai)<br>
-Presentation: [https://bit.ly/2yLpoEC](https://bit.ly/2yLpoEC)<br>
+Slides Presentation: [https://bit.ly/2yLpoEC](https://bit.ly/2yLpoEC)<br>
 
 Creators: Aadit Gupta, Raadwan Masum, Safin Singh, and Rohan Juneja
