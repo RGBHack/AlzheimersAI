@@ -15,7 +15,7 @@ A diagram of how our content is served can be found below:
 
 For more information on our AI and our AI library, please check out the AI folder and our [Wiki](https://github.com/safinsingh/AlzheimersAI/wiki)
 
-Video Demo: [https://youtu.be/DBsy2l8raws](https://youtu.be/DBsy2l8raws)<br>
+Video Demo: [https://youtu.be/9EbzsI7cwNs](https://youtu.be/9EbzsI7cwNs)<br>
 DevPost: [https://devpost.com/software/alzheimersai](https://devpost.com/software/alzheimersai)<br>
 Slides Presentation: [https://bit.ly/2yLpoEC](https://bit.ly/2yLpoEC)<br>
 
