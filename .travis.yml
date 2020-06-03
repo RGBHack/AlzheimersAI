@@ -21,7 +21,6 @@ matrix:
         - gcloud auth activate-service-account --key-file=google-key.json
         - gcloud auth configure-docker    # enable "docker push" to gcr
         - gcloud config set project "${GCP_PROJECT_ID}"
-        - gcloud config set builds/use_kaniko True
         - gcloud components install beta  # until Cloud Run is generally available (GA)
         install: true
         script:
