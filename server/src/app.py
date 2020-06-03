@@ -56,7 +56,7 @@ def render_static_product():
             actual_file_path = os.path.join(upP, filename)
             file.save(os.path.join(upP, filename))
             aiout = ai.test(actual_file_path, pkl_file)
-            os.delete(os.path.join(upP, filename))
+            os.remove(os.path.join(upP, filename))
             return render_template('product.html', aiout=aiout)
     return render_template('product.html')
 
