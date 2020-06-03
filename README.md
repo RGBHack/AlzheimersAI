@@ -1,5 +1,5 @@
 # AlzheimersAI
-### [![Build Status](https://travis-ci.com/safinsingh/AlzheimersAI.svg?token=3fbJg9w6ZsQzZoBT4nKJ&branch=master)](https://travis-ci.com/safinsingh/AlzheimersAI) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+### [![Build Status](https://travis-ci.com/RGBHack/AlzheimersAI.svg?branch=master)](https://travis-ci.com/RGBHack/AlzheimersAI) [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 
 A website for early detection and tracking of Alzheimer's disease. The live link is [https://alzheimersai.tk/](https://alzheimersai.tk/)
