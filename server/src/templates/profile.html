@@ -155,7 +155,7 @@
           var country = document.getElementById("patient_country").value
           var state = document.getElementById("patient_state").value
           if (city !== "" && name !== "" && dob !== "" && country !== "" && state !== "") {
-            db.collection("users").doc(user.uid).set({ profile: true, name: name, city: city, dob: dob, country: country, state: state }).then(function () {
+            db.collection("users").doc(user.uid).update({ profile: true, name: name, city: city, dob: dob, country: country, state: state }).then(function () {
               window.location.pathname = '/neuralz'
             })
           }
