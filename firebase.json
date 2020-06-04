@@ -14,7 +14,8 @@
       "run": {
         "serviceId": "alzheimersai"
       }
-    }]
+    }],
+    "cleanUrls": true
   },
   "firestore": {
     "rules": "firestore.rules",
